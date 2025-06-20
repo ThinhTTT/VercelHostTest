@@ -59,9 +59,44 @@ The following environment variables are automatically set by Railway:
 
 ### Local Development
 
+#### Quick Start
+
 ```bash
+# Install dependencies
 npm install
+
+# Start the server (handles port conflicts automatically)
+./start-local.sh
+
+# Or manually:
+npm run build
 npm run dev
 ```
+
+#### Troubleshooting Local Issues
+
+**Port 3002 already in use:**
+
+```bash
+# Stop any existing server
+./stop-local.sh
+
+# Or manually kill the process
+lsof -ti:3002 | xargs kill -9
+```
+
+**Build issues:**
+
+```bash
+# Clean and rebuild
+rm -rf dist
+npm run build
+```
+
+#### Accessing Your App
+
+- **Main app**: http://localhost:3002
+- **Health check**: http://localhost:3002/health
+- **Socket.IO**: Automatically connects to localhost:3002
 
 The server will run on `http://localhost:3002`

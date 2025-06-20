@@ -213,15 +213,15 @@ export const Experience = () => {
         // position={[0, 0, 0]}
         //target={new THREE.Vector3(map.size[0] / 2, 0, map.size[1] / 2)}
         //position={[-4,4,-4]}
-        intensity={7} 
+        intensity={3} 
         castShadow
-        shadow-mapSize={[1024, 1024]}
-        shadow-camera-near={0.1}
-        shadow-camera-far={20}
-        shadow-camera-left={-5}
-        shadow-camera-right={25}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-5}
+        // shadow-mapSize={[1024, 1024]}
+        // shadow-camera-near={0.1}
+        // shadow-camera-far={20}
+        // shadow-camera-left={-5}
+        // shadow-camera-right={25}
+        // shadow-camera-top={10}
+        // shadow-camera-bottom={-5}
       >
       </ambientLight>
       {buildMode && (
