@@ -96,7 +96,7 @@ export const Experience = () => {
       texture.repeat.set(size[0], size[1]);
     }
     else {
-      texture.repeat.set((map?.size[0] || 1) / (map?.size[1] || 1), 1)
+      texture.repeat.set(map.size[0] / map.size[1], 1)
     }
 
     return texture;
@@ -119,13 +119,13 @@ export const Experience = () => {
 
     if (
       draggedItemPosition[0] < 0 ||
-      draggedItemPosition[0] + width > (map?.size[0] || 0) * (map?.gridDivision || 1)
+      draggedItemPosition[0] + width > map.size[0] * map.gridDivision
     ) {
       droppable = false;
     }
     if (
       draggedItemPosition[1] < 0 ||
-      draggedItemPosition[1] + height > (map?.size[1] || 0) * (map?.gridDivision || 1)
+      draggedItemPosition[1] + height > map.size[1] * map.gridDivision
     ) {
       droppable = false;
     }
@@ -210,7 +210,7 @@ export const Experience = () => {
   return (
     <>
       {/* <Environment preset="sunset" blur={0.01} /> */}
-      {/* <ambientLight intensity={1} /> */}
+      <ambientLight intensity={1} />
       <PerformanceMonitor onIncline={() => setShadowSamples(20)} onDecline={() => setShadowSamples(5)} />
 
       {/* <SoftShadows samples={shadowSamples} focus={2} size={30} /> */}
@@ -247,13 +247,13 @@ export const Experience = () => {
           minPolarAngle={0}
           maxPolarAngle={Math.PI / 2}
           screenSpacePanning={false}
-          target={new THREE.Vector3((map?.size[0] || 0) / 2, 0, (map?.size[1] || 0) / 2)}
+          target={new THREE.Vector3(map.size[0] / 2, 0, map.size[1] / 2)}
         />
       )}wd
 
       <Suspense>
         {
-          (buildMode ? items : (map?.items || [])).map((item, idx) => (
+          (buildMode ? items : map.items).map((item, idx) => (
             <Item
               key={`${item.name}-${idx}`}
               item={item}
@@ -289,12 +289,12 @@ export const Experience = () => {
               setDraggedItemPosition(gridPosition);
             }
           }}
-          position-x={(map?.size[0] || 0) / 2}
-          position-z={(map?.size[1] || 0) / 2}
+          position-x={map.size[0] / 2}
+          position-z={map.size[1] / 2}
           receiveShadow
           envMapIntensity={0.3}
         >
-          <planeGeometry args={map?.size || [10, 10]} />
+          <planeGeometry args={map.size} />
           {/* <MeshReflectorMaterial
             envMapIntensity={0}
             lightMapIntensity={0.95 + 1}
@@ -327,12 +327,12 @@ export const Experience = () => {
             <mesh
               rotation-x={-Math.PI / 2}
               position-y={4.001}
-              position-x={(map?.size[0] || 0) / 2}
-              position-z={(map?.size[1] || 0) / 2}
+              position-x={map.size[0] / 2}
+              position-z={map.size[1] / 2}
               castShadow
               receiveShadow
             >
-              <planeGeometry args={map?.size || [10, 10]} />
+              <planeGeometry args={map.size} />
               <meshStandardMaterial color={wallColor} side={THREE.DoubleSide} envMapIntensity={0.3}/>
             </mesh>
           )
@@ -373,13 +373,13 @@ export const Experience = () => {
           !buildMode && (
             <mesh
               rotation-y={-Math.PI / 2}
-              position-x={(map?.size[0] || 0)}
+              position-x={map.size[0]}
               position-y={8 / 2}
-              position-z={(map?.size[1] || 0) / 2}
+              position-z={map.size[1] / 2}
               castShadow
               receiveShadow
             >
-              <planeGeometry args={[map?.size[1] || 10, 8]} />
+              <planeGeometry args={[map.size[1], 8]} />
               <meshStandardMaterial color={wallColor} side={THREE.DoubleSide} envMapIntensity={0.3} />
             </mesh>
           )
@@ -391,11 +391,11 @@ export const Experience = () => {
               rotation-y={-Math.PI / 2}
               position-x={0}
               position-y={8 / 2}
-              position-z={(map?.size[1] || 0) / 2}
+              position-z={map.size[1] / 2}
               castShadow
               receiveShadow
             >
-              <planeGeometry args={[map?.size[1] || 10, 8]} />
+              <planeGeometry args={[map.size[1], 8]} />
               <meshStandardMaterial color={wallColor} side={THREE.DoubleSide} envMapIntensity={0.3} />
             </mesh>
           )
@@ -405,13 +405,13 @@ export const Experience = () => {
           !buildMode && (
             <mesh
               rotation-z={-Math.PI / 2}
-              position-x={(map?.size[0] || 0) / 2}
+              position-x={map.size[0] / 2}
               position-y={8 / 2}
               position-z={0}
               castShadow
               receiveShadow
             >
-              <planeGeometry args={[8, (map?.size[0] || 10) + 0.1]} />
+              <planeGeometry args={[8, map.size[0] + 0.1]} />
               <meshStandardMaterial color={wallColor} side={THREE.DoubleSide} envMapIntensity={0.3} />
             </mesh>
           )
