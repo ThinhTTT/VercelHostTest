@@ -25,6 +25,11 @@ export function IFCModelViewer() {
 
     // Find the first table position
     const getTablePosition = () => {
+        if (!map || !map.items) {
+            console.warn("Map or map.items is null, using default position");
+            return new THREE.Vector3(0, 0, 0);
+        }
+        
         const table = map.items.find(item => item.name === 'udlTableChair');
         if (table) {
             console.log("Found table:", table);
@@ -177,6 +182,11 @@ export function IFCModelViewer() {
             model.visible = isVisible;
         }
     }, [model, isVisible]);
+
+    // Don't render if map is not loaded yet
+    if (!map) {
+        return null;
+    }
 
     return model ? <primitive object={model} /> : null;
 }

@@ -46,14 +46,18 @@ export const SocketManager = () => {
         }
 
         function onHello(value){
-            console.log("onHello");
+            console.log("onHello", value);
+            if (!value || !value.map) {
+                console.error("Invalid hello data received:", value);
+                return;
+            }
             setUser(value.id);
             setMap(value.map);
-            setItem(value.map.items);
-            setItemDict(value.items);
-            setMapData(caculateMapData(value.map,value.map.items))
+            setItem(value.map.items || []);
+            setItemDict(value.items || {});
+            setMapData(caculateMapData(value.map, value.map.items || []));
             //setMapData(value.mapData);
-            setMapSize([value.map.size[0] * value.map.gridDivision,value.map.size[1] * value.map.gridDivision]);
+            setMapSize([value.map.size[0] * value.map.gridDivision, value.map.size[1] * value.map.gridDivision]);
         }
 
         function onCharacter(value){
