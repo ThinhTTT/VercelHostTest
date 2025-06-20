@@ -8,7 +8,7 @@ import compression from 'compression';
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import { meetingMap } from './map.js';
-// import items from './items.js';
+import items from './items.js';
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
@@ -112,7 +112,7 @@ io.on('connection', (socket) => {
       socket.emit("hello", {
         id: socket.id,
         map: roomData.map,
-        // items,
+        items,
       });
       permission[socket.id] = ID
       //console.log("char new: ",type, roomData.characters)
@@ -155,16 +155,16 @@ io.on('connection', (socket) => {
     io.in(ID).emit('message', { id, content });
   });
 
-  socket.on("itemsUpdate", ({ /*items,*/ data }) => {
+  socket.on("itemsUpdate", ({ items, data }) => {
     var ID = permission[socket.id]
     if (!ID || !rooms[ID]) {  
       return;
     }
     //console.log("itemsUpdate");
-    // rooms[ID].map.items = items;
+    rooms[ID].map.items = items;
     rooms[ID].map.data = data;
     //console.log("data",data.length);
-    //upateMapData(map.items);
+    upateMapData(map.items);
     //console.log("mapUpdate", items);
     io.in(ID).emit("mapUpdate", {
       map: rooms[ID].map,
