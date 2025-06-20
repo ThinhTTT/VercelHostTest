@@ -200,14 +200,7 @@ export const Experience = () => {
   const [shadowSamples, setShadowSamples] = useState(10)
 
   const wallColor = "white";
-  const spotlightRef = useRef();
 
-  // Auto rotate spotlight
-  useFrame((state, delta) => {
-    if (spotlightRef.current) {
-      spotlightRef.current.angle -= delta * 0.5; // Rotation speed
-    }
-  });
 
   return (
     <>
@@ -216,31 +209,21 @@ export const Experience = () => {
       <PerformanceMonitor onIncline={() => setShadowSamples(20)} onDecline={() => setShadowSamples(5)} />
 
       {/* <SoftShadows samples={shadowSamples} focus={2} size={30} /> */}
-      {/* <ambientLight
+      <ambientLight
         // position={[0, 0, 0]}
         //target={new THREE.Vector3(map.size[0] / 2, 0, map.size[1] / 2)}
         //position={[-4,4,-4]}
-        intensity={1}
+        intensity={7}
         castShadow
-        // shadow-mapSize={[1024, 1024]}
-        // shadow-camera-near={0.1}
-        // shadow-camera-far={20}
-        // shadow-camera-left={25}
-        // shadow-camera-right={25}
-        // shadow-camera-top={10}
-        // shadow-camera-bottom={-5}
+        shadow-mapSize={[1024, 1024]}
+        shadow-camera-near={0.1}
+        shadow-camera-far={20}
+        shadow-camera-left={-5}
+        shadow-camera-right={25}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-5}
       >
-      </ambientLight> */}
-      <mesh position={[2, 2, 2]}>
-        <boxGeometry args={[0.3, 0.3, 0.3]} />
-        <meshBasicMaterial color="red" roughness={1} metalness={0.8}/>
-      </mesh>
-      <spotLight
-        ref={spotlightRef}
-        position={[2, 2, 2]}
-        intensity={1}
-        castShadow
-      />
+      </ambientLight>
       {buildMode && (
         <OrbitControls
           ref={controls}
@@ -273,10 +256,6 @@ export const Experience = () => {
             />
           ))
         }
-        <mesh position={[13, 0, 10]}>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="red" roughness={1} metalness={0.8}/>
-        </mesh>
         {/* FLOOR */}
         <mesh
           rotation-x={-Math.PI / 2}
