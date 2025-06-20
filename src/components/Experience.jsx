@@ -170,7 +170,7 @@ export const Experience = () => {
 
   useEffect(() => {
     if (buildMode) {
-      setItems(map?.items || []);
+      setItems(map.items);
       state.camera.position.set(8, 8, 8);
       controls.current.target.set(0, 0, 0);
     } else {

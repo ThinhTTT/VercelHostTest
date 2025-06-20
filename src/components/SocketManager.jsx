@@ -53,9 +53,9 @@ export const SocketManager = () => {
             }
             setUser(value.id);
             setMap(value.map);
-            setItem(value.map.items || []);
-            setItemDict(value.items || {});
-            setMapData(caculateMapData(value.map, value.map.items || []));
+            setItem(value.map.items);
+            setItemDict(value.items);
+            setMapData(caculateMapData(value.map, value.map.items));
             //setMapData(value.mapData);
             setMapSize([value.map.size[0] * value.map.gridDivision, value.map.size[1] * value.map.gridDivision]);
         }
