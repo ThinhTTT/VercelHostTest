@@ -1,0 +1,53 @@
+
+.editroom-button-container {
+    position: relative
+}
+
+.edit-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.edit-button:hover {
+    cursor: pointer;
+}
+
+
+.edit-button img {
+    width: 30px;
+    height: 30px;
+    margin: auto;
+}
+.gesture-button-container {
+    position: relative
+}
+
+.gesture-button {
+    position: fixed;
+    bottom: 90px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.gesture-button:hover {
+    cursor: pointer;
+}
+
+
+.gesture-button img {
+    width: 30px;
+    height: px;
+    margin: auto;
+}

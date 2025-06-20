@@ -1,0 +1,80 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+
+  ---font-family : system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.box-shadow-01 {
+  box-shadow: -5px -5px 30px 0px #00000028;
+}
+
+
+.outer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  width: 100vw;
+}
+
+.fixed-box {
+  position: fixed;
+}
+.fixed-control-box {
+  position: fixed;
+  padding-right: 7px;
+  padding-left: 7px;
+  background-color: #fff;
+  bottom: 10px;
+  border-radius: 25px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  z-index: 1000;
+}
+.circle-button {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.circle-button:hover {
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.warning {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+    height: 100%;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}
+
+.warning h2 {
+  color: #721c24;
+  margin-bottom: 10px;
+}
+
+.warning p {
+  color: #721c24;
+  margin: 0;
+}

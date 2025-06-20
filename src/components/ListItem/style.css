@@ -1,0 +1,87 @@
+.listitem-container {
+    position: relative;
+}
+
+.listitem-box {
+    position: fixed;
+    height: 50px;
+    background-color: white;
+    top: 100px;
+    right: 20px;
+    border-radius: 100px;
+    box-shadow: -5px -5px 30px 0px #00000028;
+    border: 1px solid #dadada;
+    display: flex;
+    overflow: hidden;
+    align-content: center;
+    flex-direction: row-reverse;
+  }
+
+.listitem-box.collapse {
+    width: 50px;
+    transition: width 0.3s ease-in;
+}
+
+.listitem-box.expand {
+    width: 300px;
+    transition: width 0.3s ease-out;
+}
+
+.listitem-container .toggle-button:hover {
+    cursor: pointer;
+}
+
+.listitem-container .toggle-button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+}
+
+.listitem-box .toggle-button img {
+    width: 25px;
+    height: 25px;
+    margin: 12.5px;
+}
+
+.items-scroller {
+    width: 450px;
+
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 100px;
+    
+    display: flex;
+    gap: 25px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.items-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.items-scroller .select-item {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+}
+
+.items-scroller .select-item img {
+    width: 30x;
+    height: 30px;
+    transition: scale 0.15s ease-out;
+    scale: 1.1;
+}
+
+.items-scroller .select-item:hover {
+    cursor: pointer;
+}
+
+.items-scroller .select-item:hover img {
+    scale: 1.5;
+    transition: scale 0.2s ease-in;
+}
+

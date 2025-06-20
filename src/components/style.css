@@ -1,0 +1,43 @@
+.editroom-button-container {
+  position: relative;
+}
+
+.editroom-button-container .circle-button img {
+  width: 30px;
+  height: 30px;
+  margin: auto;
+}
+
+.editroom-button-container .circle-button svg {
+  width: 25px;
+  height: 25px;
+  margin: auto;
+}
+
+.toggle-edit {
+  top: 20px;
+  right: 20px;
+}
+
+.add {
+  top: 80px; /* Adjust as needed */
+  right: 20px;
+}
+
+.cancel {
+  top: 20px;
+  left: 50%;
+  transform: translateX(calc( -50% + 100px));
+}
+
+.delete {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rotate {
+  top: 20px;
+  left: 50%;
+  transform: translateX(calc( -50% - 100px));
+}
