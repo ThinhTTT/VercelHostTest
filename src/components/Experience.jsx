@@ -131,6 +131,7 @@ export const Experience = () => {
     }
 
     if (!item.walkable && !item.wall) {
+      console.log("---items: " , items);
       items.forEach((otherItem, idx) => {
         // ignore self
         if (idx === draggedItem) {
@@ -170,11 +171,12 @@ export const Experience = () => {
 
   useEffect(() => {
     if (buildMode) {
+      console.log("---map.items: " , map.items);
       setItems(map.items);
       state.camera.position.set(8, 8, 8);
       controls.current.target.set(0, 0, 0);
     } else {
-      console.log(items);
+      console.log("----" , items);
       const data = caculateMapData(items);
       console.log("data", data.length, data);
       socket.emit("itemsUpdate", { items, data });

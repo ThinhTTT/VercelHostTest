@@ -164,7 +164,7 @@ io.on('connection', (socket) => {
     rooms[ID].map.items = items;
     rooms[ID].map.data = data;
     //console.log("data",data.length);
-    upateMapData(map.items);
+    // upateMapData(map.items);
     //console.log("mapUpdate", items);
     io.in(ID).emit("mapUpdate", {
       map: rooms[ID].map,
