@@ -358,7 +358,7 @@ export function MapTable({ position = [0, 0, 0], rotation = [0, 0, 0] }) {
             'type': 'Feature',
             'properties': {
                 'modelurl':
-                'https://localhost:3002/models/building.glb'
+                '/models/building.glb'
             },
             'geometry': {
                 'coordinates': origin,
