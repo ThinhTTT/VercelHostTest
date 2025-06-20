@@ -16,7 +16,6 @@ import {
 } from "./EditRoom";
 import * as THREE from "three";
 import { useXR, useController } from "@react-three/xr";
-import { useFrame } from "@react-three/fiber";
 
 
 export const Experience = () => {
@@ -38,7 +37,7 @@ export const Experience = () => {
   const _floorNormal = useTexture('./textures/floor/Tiles_033_normal.jpg');
   const _floorAo = useTexture('./textures/floor/Tiles_033_ambientOcclusion.jpg');
   const _floorRoughness = useTexture('./textures/floor/Tiles_033_roughness.jpg');
-  const _floorMap = useTexture('./textures/floor/floor.jpg');
+  const _floorMap = useTexture('./textures/floor/Tiles_033_basecolor.jpg');
 
   const tillingScale = null;
 
@@ -131,7 +130,6 @@ export const Experience = () => {
     }
 
     if (!item.walkable && !item.wall) {
-      console.log("---items: " , items);
       items.forEach((otherItem, idx) => {
         // ignore self
         if (idx === draggedItem) {
@@ -171,12 +169,11 @@ export const Experience = () => {
 
   useEffect(() => {
     if (buildMode) {
-      console.log("---map.items: " , map.items);
-      setItems(map.items);
+      setItems(map?.items || []);
       state.camera.position.set(8, 8, 8);
       controls.current.target.set(0, 0, 0);
     } else {
-      console.log("----" , items);
+      console.log(items);
       const data = caculateMapData(items);
       console.log("data", data.length, data);
       socket.emit("itemsUpdate", { items, data });
@@ -201,29 +198,28 @@ export const Experience = () => {
 
   const wallColor = "white";
 
-
   return (
     <>
-      {/* <Environment preset="sunset" blur={0.01} /> */}
+      <Environment preset="sunset" blur={0.01} />
       <ambientLight intensity={1} />
       <PerformanceMonitor onIncline={() => setShadowSamples(20)} onDecline={() => setShadowSamples(5)} />
 
       {/* <SoftShadows samples={shadowSamples} focus={2} size={30} /> */}
-      <ambientLight
-        // position={[0, 0, 0]}
+      <directionalLight
+        position={[-1, 5, map.size[1]]}
         //target={new THREE.Vector3(map.size[0] / 2, 0, map.size[1] / 2)}
         //position={[-4,4,-4]}
-        intensity={3} 
+        intensity={7}
         castShadow
-        // shadow-mapSize={[1024, 1024]}
-        // shadow-camera-near={0.1}
-        // shadow-camera-far={20}
-        // shadow-camera-left={-5}
-        // shadow-camera-right={25}
-        // shadow-camera-top={10}
-        // shadow-camera-bottom={-5}
+        shadow-mapSize={[4096, 4096]}
+        shadow-camera-near={0.1}
+        shadow-camera-far={20}
+        shadow-camera-left={-5}
+        shadow-camera-right={25}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-5}
       >
-      </ambientLight>
+      </directionalLight>
       {buildMode && (
         <OrbitControls
           ref={controls}
@@ -294,12 +290,11 @@ export const Experience = () => {
           /> */}
           <meshStandardMaterial
           color={wallColor}
-          // side={THREE.DoubleSide}
-          // envMapIntensity={0.3}
-          // receiveShadow
-          // map={tillingTexture(_floorMap, tillingScale)}
-          // aoMap={tillingTexture(_floorAo, tillingScale)}
-          // normalMap={tillingTexture(_floorNormal, tillingScale)}
+          side={THREE.DoubleSide}
+          envMapIntensity={0.3}
+          map={tillingTexture(_floorMap, tillingScale)}
+          aoMap={tillingTexture(_floorAo, tillingScale)}
+          normalMap={tillingTexture(_floorNormal, tillingScale)}
           />
         </mesh>
         {/* CELL */}
