@@ -3,7 +3,18 @@ import { io } from 'socket.io-client';
 import { atom, useAtom } from "jotai";
 import {caculateMapData} from "../hooks/useGrid"
 
-export const socket = io.connect();
+// Connect to the server based on environment
+const serverUrl = import.meta.env.PROD 
+  ? window.location.origin 
+  : 'http://localhost:3002';
+
+export const socket = io.connect(serverUrl, {
+  transports: ['polling', 'websocket'],
+  upgrade: true,
+  rememberUpgrade: true,
+  timeout: 20000,
+  forceNew: true
+});
 
 export const characterAtom = atom([]);
 export const messagesAtom = atom([]);
@@ -39,10 +50,13 @@ export const SocketManager = () => {
 
     useEffect(() => {
         function onConnect() {
-            console.log("Connected");
+            console.log("Connected to server");
         }
         function onDisconnect() {
-            console.log("Disconnected");
+            console.log("Disconnected from server");
+        }
+        function onConnectError(error) {
+            console.error("Connection error:", error);
         }
 
         function onHello(value){
@@ -99,6 +113,7 @@ export const SocketManager = () => {
         
         socket.on("connect", onConnect);
         socket.on("disconnect", onDisconnect);
+        socket.on("connectError", onConnectError);
         socket.on("hello", onHello);
         socket.on("characters", onCharacter);
         socket.on("message", onMessageReceive);
@@ -111,6 +126,7 @@ export const SocketManager = () => {
         return () => {
             socket.off("connect", onConnect);
             socket.off("disconnect", onDisconnect);
+            socket.off("connectError", onConnectError);
             socket.off("hello", onHello);
             socket.off("characters", onCharacter);
             socket.off("mapUpdate", onMapUpdate);

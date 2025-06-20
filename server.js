@@ -3,7 +3,6 @@ import { Server } from 'socket.io';
 import fs from 'fs';
 import path from 'path';
 import http from 'http'
-import https from 'https'
 import compression from 'compression';
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
@@ -13,21 +12,40 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const app = express(),
-  options = {
-    key: fs.readFileSync(__dirname + '/key.pem'),
-    cert: fs.readFileSync(__dirname + '/cert.pem')
-  },
   port = process.env.PORT || 3002,
-  server = process.env.NODE_ENV === 'production' ?
-    http.createServer(app).listen(port) :
-    https.createServer(options, app).listen(port),
+  server = http.createServer(app),
   io = new Server(server, {
-    maxHttpBufferSize: 1e8 // 100MB for IFC files
+    maxHttpBufferSize: 1e8, // 100MB for IFC files
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+      credentials: true
+    },
+    transports: ['polling', 'websocket']
   });
+
+// Start the server
+server.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+  console.log(`Environment: ${process.env.NODE_ENV}`);
+  console.log(`Socket.IO server initialized`);
+});
+
 console.log(path.join(__dirname, 'dist'))
 
 // compress all requests
 app.use(compression());
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    port: port
+  });
+});
+
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res) => res.sendFile(__dirname + '/dist/index.html'));
@@ -161,6 +179,8 @@ io.on('connection', (socket) => {
       return;
     }
     //console.log("itemsUpdate");
+
+    console.log("---map.items: " ,items);
     rooms[ID].map.items = items;
     rooms[ID].map.data = data;
     //console.log("data",data.length);
